@@ -120,3 +120,51 @@ document.getElementById("saveBtn").addEventListener("click", async function(){
     }
 
 });
+
+// ---------- LOAD RECORDS ----------
+
+async function loadRecords(){
+
+    const tableBody = document.querySelector("#recordTable tbody");
+
+    tableBody.innerHTML = "";
+
+    const q = query(
+        collection(db,"dailyRecords"),
+        orderBy("createdAt","desc")
+    );
+
+
+    const snapshot = await getDocs(q);
+
+
+    snapshot.forEach((doc)=>{
+
+        const data = doc.data();
+
+
+        const row = document.createElement("tr");
+
+
+        row.innerHTML = `
+
+        <td>${data.date}</td>
+
+        <td>₹${data.shopCollection}</td>
+
+        <td>₹${data.photoCollection}</td>
+
+        <td>₹${data.purchase}</td>
+
+        <td>₹${data.water}</td>
+
+        <td>₹${data.profit}</td>
+
+        `;
+
+
+        tableBody.appendChild(row);
+
+    });
+
+}
