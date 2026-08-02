@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIYA MIYA FANCY - Shop Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <h1>🏪 MIYA MIYA FANCY</h1>
+
+  <div id="loginBox">
+    <h2>Login</h2>
+
+    <input type="text" id="username" placeholder="Username">
+
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p id="loginError"></p>
+  </div>
+
+  <div id="app" style="display:none;">
+
+    <h2>Daily Entry</h2>
+
+    <input type="date" id="date">
+
+    <input type="number" id="shopCollection" placeholder="🛍️ Shop Collection ₹">
+
+    <input type="number" id="photoCollection" placeholder="🖨️ Photostat Collection ₹">
+
+    <input type="number" id="purchase" placeholder="📦 Purchase ₹">
+
+    <input type="number" id="water" placeholder="🚰 Water Purchase ₹">
+
+    <button id="saveBtn">💾 Save Record</button>
+
+    <hr>
+
+    <h2>Today's Summary</h2>
+
+    <p><strong>Total Collection:</strong> ₹<span id="totalCollection">0</span></p>
+
+    <p><strong>Total Expenses:</strong> ₹<span id="totalExpense">0</span></p>
+
+    <p><strong>Profit:</strong> ₹<span id="profit">0</span></p>
+
+    <hr>
+
+    <h2>History</h2>
+
+    <div id="records"></div>
+
+  </div>
+
+</div>
+
+<script type="module" src="firebase.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
