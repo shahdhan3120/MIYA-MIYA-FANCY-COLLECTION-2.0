@@ -64,3 +64,59 @@ shop.addEventListener("input",updateSummary);
 photo.addEventListener("input",updateSummary);
 purchase.addEventListener("input",updateSummary);
 water.addEventListener("input",updateSummary);
+
+// ---------- SAVE RECORD ----------
+
+document.getElementById("saveBtn").addEventListener("click", async function(){
+
+    const date = document.getElementById("date").value;
+
+    const shopCollection = Number(shop.value) || 0;
+    const photoCollection = Number(photo.value) || 0;
+    const purchaseValue = Number(purchase.value) || 0;
+    const waterValue = Number(water.value) || 0;
+
+    const totalCollection = shopCollection + photoCollection;
+    const totalExpense = purchaseValue + waterValue;
+    const profit = totalCollection - totalExpense;
+
+
+    try {
+
+        await addDoc(collection(db,"dailyRecords"),{
+
+            date: date,
+
+            shopCollection: shopCollection,
+
+            photoCollection: photoCollection,
+
+            purchase: purchaseValue,
+
+            water: waterValue,
+
+            totalCollection: totalCollection,
+
+            totalExpense: totalExpense,
+
+            profit: profit,
+
+            createdAt: serverTimestamp()
+
+        });
+
+
+        alert("✅ Record Saved!");
+
+        loadRecords();
+
+
+    } catch(error){
+
+        console.log(error);
+
+        alert("❌ Error saving record");
+
+    }
+
+});
