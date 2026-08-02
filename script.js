@@ -160,11 +160,37 @@ async function loadRecords(){
 
         <td>₹${data.profit}</td>
 
+        <td>
+        <button onclick="deleteRecord('${doc.id}')">
+         🗑️ Delete
+        </button>
+        </td>
         `;
 
 
         tableBody.appendChild(row);
 
     });
+
+}
+// ---------- DELETE RECORD ----------
+
+window.deleteRecord = async function(id){
+
+    const confirmDelete = confirm(
+        "Delete this record?"
+    );
+
+    if(confirmDelete){
+
+        await deleteDoc(
+            doc(db,"dailyRecords",id)
+        );
+
+        alert("✅ Record Deleted");
+
+        loadRecords();
+
+    }
 
 }
