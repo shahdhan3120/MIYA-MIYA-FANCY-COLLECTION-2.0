@@ -8,7 +8,9 @@ import {
   getDocs,
   query,
   orderBy,
-  serverTimestamp
+  serverTimestamp,
+  deletedoc,
+  doc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 // ---------- LOGIN ----------
@@ -172,6 +174,8 @@ async function loadRecords(){
 
     });
 
+  monthlyreport();
+
 }
 // ---------- DELETE RECORD ----------
 
@@ -192,5 +196,32 @@ window.deleteRecord = async function(id){
         loadRecords();
 
     }
+
+}
+// ---------- MONTHLY REPORT ----------
+
+async function monthlyReport(){
+
+    let collectionTotal = 0;
+    let expenseTotal = 0;
+    let profitTotal = 0;
+
+    const snapshot = await getDocs(collection(db,"dailyRecords"));
+
+    snapshot.forEach((doc)=>{
+
+        const data = doc.data();
+
+        collectionTotal += data.totalCollection || 0;
+        expenseTotal += data.totalExpense || 0;
+        profitTotal += data.profit || 0;
+
+    });
+
+    document.getElementById("monthCollection").innerHTML = collectionTotal;
+
+    document.getElementById("monthExpense").innerHTML = expenseTotal;
+
+    document.getElementById("monthProfit").innerHTML = profitTotal;
 
 }
